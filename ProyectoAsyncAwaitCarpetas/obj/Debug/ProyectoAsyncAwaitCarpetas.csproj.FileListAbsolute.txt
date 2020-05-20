@@ -1,0 +1,13 @@
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\bin\Debug\ProyectoAsyncAwaitCarpetas.exe.config
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\bin\Debug\ProyectoAsyncAwaitCarpetas.exe
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\bin\Debug\ProyectoAsyncAwaitCarpetas.pdb
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\MainWindow.g.cs
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\App.g.cs
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas_MarkupCompile.cache
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas_MarkupCompile.lref
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\MainWindow.baml
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas.g.resources
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas.Properties.Resources.resources
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas.csproj.GenerateResource.cache
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas.exe
+C:\Users\guill\source\repos\ProyectoAsyncAwaitCarpetas\ProyectoAsyncAwaitCarpetas\obj\Debug\ProyectoAsyncAwaitCarpetas.pdb

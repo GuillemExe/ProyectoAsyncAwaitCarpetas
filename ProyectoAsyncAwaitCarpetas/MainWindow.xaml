@@ -1,0 +1,45 @@
+﻿<Window x:Class="ProyectoAsyncAwaitCarpetas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoAsyncAwaitCarpetas"
+        ResizeMode="NoResize" Height="800" Width="1000"
+        Title="Async Await">
+
+    <StackPanel>
+        <Grid Margin="10" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="ListBoxTablaUno" Height="600" Grid.Column="1" Margin="5"></ListBox>
+            <ListBox x:Name="ListBoxTablaDos" Height="600" Grid.Column="2" Margin="5"></ListBox>
+
+            <Button x:Name="ButtonUno" VerticalAlignment="Top" Grid.Column="0" Margin="5" Padding="5" Content="Button 1"></Button>
+            <Button x:Name="ButtonDos" VerticalAlignment="Top" Grid.Column="3" Margin="5" Padding="5" Content="Button 2"></Button>
+
+            <TextBlock x:Name="TextBlockUno" Grid.Row="1" Grid.Column="1" Margin="5" Text="Pulsa el 'Button 1' para escanear"></TextBlock>
+            <TextBlock x:Name="TextBlockDos" Grid.Row="1" Grid.Column="2" Margin="5" Text="Pulsa el 'Button 2' para escanear"></TextBlock>
+
+            <Grid Grid.Row="2" Margin="30" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButtonTres" Grid.Column="1" Margin="5" Padding="5" Content="Button 3"></Button>
+                <TextBlock x:Name="TextBlockTres" Grid.Column="2" Margin="5" VerticalAlignment="Center" Text="Pulsa el boton tres para escanear"></TextBlock>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</Window>
