@@ -1,86 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Windows.Threading;
 
 namespace ProyectoAsyncAwaitCarpetas
 {
-    class Lectura
+    public class Lectura
     {
-        public Lectura()
-        {
-            StatusRead = false;
-            ListaDeDirectorios = new List<string>();
-        }
-
         // Use el modificador async para especificar que un método es asincrónico.
         // Este método o una expresión, hace referencia al mismo como un método asincrónico.
+        static List<string> ListaDeDirectorios;
 
-        // Para determinar el status de incio fin empleo una flag.
-        public bool StatusRead { get; set; }
-        public List<string> ListaDeDirectorios { get; set; }
+        // En su mayoría he usado el sistema que aportaba por defecto el “System”.
+        // El file y el folders para guardar las carpetas y los documentos.
+        static DirectoryInfo di = new DirectoryInfo(@"C:\Program Files");
+        static List<FileInfo> files = new List<FileInfo>();
+        static List<DirectoryInfo> folders = new List<DirectoryInfo>();
 
-        public async void ReadFolder()
+        public async Task<List<string>> ReadFolder()
         {
-            await Task.Run(() =>
+            FullDirList(di, "");
+
+            ListaDeDirectorios = new List<string>();
+
+            Parallel.Invoke(() =>
             {
-                StatusRead = true;
-                ReadFolderVersionStable(@"C:\Program Files");
+                foreach (var folder in folders)
+                {
+                    ListaDeDirectorios.Add(folder.FullName);
+                }
+            }, () => {
+                foreach (var file in files)
+                {
+                    ListaDeDirectorios.Add(file.FullName);
+                }
             });
+
+            return ListaDeDirectorios;
         }
 
-        internal void ReadFolderVersionStable(string route)
+        static void FullDirList(DirectoryInfo dir, string searchPattern)
         {
-            while (StatusRead)
-            {
-                ReadFolder(route);
-            }
-        }
-
-        private void ReadFolder(string route)
-        {
-            // 1 Mejor.
-            // Las diferentes pruebas de rendimiento han portado
-            // que este tenga una 100% de eficacia respecto al
-            // tiempo dado de las tres tipos de lectura.
-
-            // Tiempo: 30 a 34 segundos.
-            // Procesado por un Intel i7-6 de 4.0Ghz.
-            // Volumen ocupado para el escáner 370Gb.
-
             Parallel.Invoke(() =>
             {
                 try
                 {
-                    foreach (string folder in Directory.GetDirectories(@route))
+                    foreach (FileInfo file in dir.GetFiles())
                     {
-                        ListaDeDirectorios.Add(folder);
+                        files.Add(file);
                     }
                 }
-                catch (Exception)
+                catch
                 {
                     // Ignored
                 }
-            }, () =>
-            {
+            }, () => {
                 try
                 {
-                    foreach (string document in Directory.GetFiles(@route))
+                    foreach (DirectoryInfo directorio in dir.GetDirectories())
                     {
-                        ListaDeDirectorios.Add(document);
+                        folders.Add(directorio);
+                        FullDirList(directorio, searchPattern);
                     }
                 }
-                catch (Exception)
+                catch
                 {
                     // Ignored
                 }
             });
-            StatusRead = false;
         }
     }
 }

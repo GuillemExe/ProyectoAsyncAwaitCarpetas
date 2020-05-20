@@ -26,7 +26,7 @@ namespace ProyectoAsyncAwaitCarpetas
             // Una región es algo que ayuda a empaquetar un grupo de funciones o parámetros,
             // no tiene peso, para ver el codigo que contiene solo haz doble click en donde pone REGION.
             #region ---> EVENTOS DE LA INTERFAZ
-
+            // Evento o lisener del boton uno. Tipo CLICK.
             ButtonUno.Click += (sender, args) =>
             {
                 // Limpiamos la lista
@@ -58,6 +58,7 @@ namespace ProyectoAsyncAwaitCarpetas
                 TextBlockUno.Text = "Time: " + ConvertMillisecondsToSeconds(timingCode1.ElapsedMilliseconds) + " seconds";
             };
 
+            // Evento o lisener del boton dos. Tipo CLICK.
             ButtonDos.Click += (sender, args) =>
             {
                 // Limpiamos la lista.
@@ -65,25 +66,17 @@ namespace ProyectoAsyncAwaitCarpetas
 
                 // Empezamos con toda la operacion.
                 var timingCode2 = System.Diagnostics.Stopwatch.StartNew();
-                Parallel.Invoke(() =>
-                {
-                    lectura.ReadFolder();
-                });
-                //while (!lectura.StatusRead)
-                //{
-                //    // Texto de carga
-                //    TextBlockDos.Text = "Procesing…";
-                //}
+
+                RoutesTwo = lectura.ReadFolder().Result;
 
                 timingCode2.Stop();
-
-                RoutesTwo = lectura.ListaDeDirectorios;
 
                 ListBoxTablaDos.ItemsSource = RoutesTwo;
 
                 TextBlockDos.Text = "Time: " + ConvertMillisecondsToSeconds(timingCode2.ElapsedMilliseconds) + " seconds";
             };
 
+            // Evento o lisener del boton tress. Tipo CLICK.
             ButtonTres.Click += (sender, args) =>
             {
                 // Recogemos la fecha actual por el System.
@@ -91,15 +84,55 @@ namespace ProyectoAsyncAwaitCarpetas
 
                 TextBlockTres.Text = "Actual time: " + TimeGet;
             };
-
             #endregion
         }
 
+
+        // Una función simple que hice para que retornada el valor en segundos.
         public static double ConvertMillisecondsToSeconds(double milliseconds)
         {
             return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds;
         }
 
+
+        // Solo se encarga de guardarlo en las listas de “file” y “folders”.
+        // Tiene un try catch por si el documento o carpeta es inaccesible. Para evitar el error.
+        static void FullDirList(DirectoryInfo dir, string searchPattern)
+        {
+            Parallel.Invoke(() =>
+            {
+                try
+                {
+                    foreach (FileInfo file in dir.GetFiles())
+                    {
+                        files.Add(file);
+                    }
+                } catch
+                {
+                    // Ignored
+                }
+            }, () => {
+                try
+                {
+                    foreach (DirectoryInfo directorio in dir.GetDirectories())
+                    {
+                        folders.Add(directorio);
+                        FullDirList(directorio, searchPattern);
+                    }
+                } catch
+                {
+                    // Ignored
+                }
+            });
+        }
+
+
+        // Esto es lo que tenia de la anterior práctica, que no la termine por un problema en la
+        // forma en la que lo hacía, usando las librerías y las clases que da el propio sistema,
+        // pude agilizar mucho el tiempo de lectura y poder hacer el AsyncAwait. Por el formato
+        // en el que lo estaba haciendo se me hacía imposible llevarlo a cabo.
+
+        // No es necesario mirarlo.
 
         // Una región es algo que ayuda a empaquetar un grupo de funciones o parámetros,
         // no tiene peso, para ver el codigo que contiene solo haz doble click en donde pone REGION.
@@ -173,7 +206,7 @@ namespace ProyectoAsyncAwaitCarpetas
                     {
                         // Ignored
                     }
-                    ReadFolderDefaultVersionDeprecated(folder); 
+                    ReadFolderDefaultVersionDeprecated(folder);
                 }
             }
             catch (Exception)
@@ -221,34 +254,5 @@ namespace ProyectoAsyncAwaitCarpetas
             }
         }
         #endregion
-
-        static void FullDirList(DirectoryInfo dir, string searchPattern)
-        {
-            Parallel.Invoke(() =>
-            {
-                try
-                {
-                    foreach (FileInfo file in dir.GetFiles())
-                    {
-                        files.Add(file);
-                    }
-                } catch
-                {
-                    // Ignored
-                }
-            }, () => {
-                try
-                {
-                    foreach (DirectoryInfo directorio in dir.GetDirectories())
-                    {
-                        folders.Add(directorio);
-                        FullDirList(directorio, searchPattern);
-                    }
-                } catch
-                {
-                    // Ignored
-                }
-            });
-        }
     }
 }
